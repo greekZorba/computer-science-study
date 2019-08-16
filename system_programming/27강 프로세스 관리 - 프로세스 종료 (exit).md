@@ -71,10 +71,10 @@ int main(void) {
 }
 
 void exithandling(void) {
-    prinf("exit handling\n");
+    printf("exit handling\n");
 }
 
 void goodbyemessage(void) {
-    prinf("see you again!\n");
+    printf("see you again!\n");
 }
 ```  
