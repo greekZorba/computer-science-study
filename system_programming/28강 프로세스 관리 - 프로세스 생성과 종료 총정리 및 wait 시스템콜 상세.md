@@ -1,4 +1,4 @@
-# 28강 프로세스 관리 - 프로세스 생성과 종료 총정리 및 wait 시스템콜 상세
+# 제 28강 프로세스 관리 - 프로세스 생성과 종료 총정리 및 wait 시스템콜 상세
 ## wait() 시스템콜
 - wait() 함수를 이용하면, fork() 함수 호출시, 자식 프로세스가 종료할 때까지, 부모 프로세스가 기다림 
 - 자식 프로세스가 종료되면, 좀비 프로세스가 되어, 해당 프로세스 조사를 위한 최소 정보만 가지고 있는 상태가 됨 
@@ -34,6 +34,7 @@ int main() {
     int pid;
     int child_pid;
     int status;
+    int ret;
     pid = fork();
 
     switch(pid) {
@@ -46,8 +47,12 @@ int main() {
             break;
         default :
             child_pid = wait(&status);
-            if(WIFEXITED(status)) {
+            printf("Parent PID (%d), Child PID (%d)\n", getpid(), child_pid);
+            ret = WIFEXITED(status);
+            if(ret != 0) {
                 printf("Child process is normally termincated\n");
+            } else {
+                printf("Child process is abnormally termincated\n");
             }        
             exit(0);
     }
